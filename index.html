@@ -2,7 +2,7 @@
 <html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Elite Arctic Aurora Expedition | Master Plan</title>
     
     <!-- Open Graph / GitHub Social Sharing -->
@@ -16,10 +16,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     
-    <!-- 1. TAILWIND ENGINE MUST LOAD FIRST -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FALLBACK: Standard Pre-compiled Tailwind CSS (Bypasses script blockers) -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
 
-    <!-- 2. TAILWIND CONFIGURATION MUST LOAD AFTER THE ENGINE -->
+    <!-- 1. TAILWIND ENGINE (Dynamic compiler for arbitrary values, if allowed by browser) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- 2. TAILWIND CONFIGURATION -->
     <script>
         tailwind.config = {
             theme: {
@@ -46,33 +49,10 @@
         }
     </script>
 
-    <style>
-        /* Hide Alpine components before compilation to prevent unstyled flashes */
-        [x-cloak] { display: none !important; }
-        
-        /* Custom Scrollbar for a premium feel */
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #F9F8F6; }
-        ::-webkit-scrollbar-thumb { background: #EAE7E1; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: #C5A880; }
-
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-
-        .glass-nav {
-            background: rgba(249, 248, 246, 0.85);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(234, 231, 225, 0.5);
-        }
-
-        .hero-gradient { background: linear-gradient(to bottom, rgba(26,26,26,0.2) 0%, rgba(26,26,26,0.8) 100%); }
-    </style>
-
-    <!-- 3. ALPINE COMPONENT LOGIC -->
+    <!-- 3. APPLICATION LOGIC -->
     <script>
-        document.addEventListener('alpine:init', () => {
-            Alpine.data('itineraryApp', () => ({
+        function itineraryApp() {
+            return {
                 activeDay: 0,
                 getEventColorClass(type) {
                     const map = {
@@ -273,17 +253,139 @@
                         ]
                     }
                 ]
-            }));
-        });
+            };
+        }
     </script>
     
-    <!-- 4. ALPINE SCRIPT LOADED AFTER LOGIC -->
+    <!-- 4. ALPINE ENGINE -->
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     
-    <!-- 5. PHOSPHOR ICONS -->
+    <!-- 5. ICONS -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- 6. STYLES & IRONCLAD FALLBACKS -->
+    <style>
+        /* Hide Alpine components before compilation to prevent unstyled flashes */
+        [x-cloak] { display: none !important; }
+        
+        /* Custom Scrollbar for a premium feel */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #F9F8F6; }
+        ::-webkit-scrollbar-thumb { background: #EAE7E1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #C5A880; }
+
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        .glass-nav {
+            background: rgba(249, 248, 246, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(234, 231, 225, 0.5);
+        }
+
+        .hero-gradient { background: linear-gradient(to bottom, rgba(26,26,26,0.2) 0%, rgba(26,26,26,0.8) 100%); }
+
+        /* ========================================================================= */
+        /* IRONCLAD FALLBACK STYLES                                                  */
+        /* These guarantee the luxury design loads EVEN IF the Tailwind script CDN   */
+        /* is completely blocked by Safari tracking protection or ad-blockers.       */
+        /* ========================================================================= */
+        :root {
+            --c-ivory: #F9F8F6;
+            --c-stone: #EAE7E1;
+            --c-charcoal: #1A1A1A;
+            --c-graphite: #2D2D2D;
+            --c-gold: #C5A880;
+            --c-gold-light: #E8DCCB;
+            --c-champagne: #F4F0EA;
+        }
+
+        /* Base Typography Overrides */
+        .font-sans { font-family: 'Inter', sans-serif !important; }
+        .font-serif { font-family: 'Playfair Display', serif !important; }
+        ::selection { background-color: var(--c-gold); color: white; }
+
+        /* Custom Colors */
+        .bg-ivory { background-color: var(--c-ivory); }
+        .text-charcoal { color: var(--c-charcoal); }
+        .bg-charcoal { background-color: var(--c-charcoal); }
+        .text-graphite { color: var(--c-graphite); }
+        .text-gold { color: var(--c-gold); }
+        .bg-gold { background-color: var(--c-gold); }
+        .border-gold { border-color: var(--c-gold); }
+        .text-gold-light { color: var(--c-gold-light); }
+        .bg-champagne { background-color: var(--c-champagne); }
+        .bg-stone { background-color: var(--c-stone); }
+        .border-stone { border-color: var(--c-stone); }
+
+        /* Opacity variations */
+        .bg-stone\/30 { background-color: rgba(234, 231, 225, 0.3); }
+        .border-stone\/50 { border-color: rgba(234, 231, 225, 0.5); }
+        .border-stone\/60 { border-color: rgba(234, 231, 225, 0.6); }
+        .bg-charcoal\/5 { background-color: rgba(26, 26, 26, 0.05); }
+        .text-charcoal\/50 { color: rgba(26, 26, 26, 0.5); }
+        .text-graphite\/50 { color: rgba(45, 45, 45, 0.5); }
+        .text-graphite\/60 { color: rgba(45, 45, 45, 0.6); }
+        .text-graphite\/70 { color: rgba(45, 45, 45, 0.7); }
+        .border-gold\/20 { border-color: rgba(197, 168, 128, 0.2); }
+        .bg-champagne\/50 { background-color: rgba(244, 240, 234, 0.5); }
+        .bg-white\/10 { background-color: rgba(255, 255, 255, 0.1); }
+        .bg-white\/50 { background-color: rgba(255, 255, 255, 0.5); }
+        .border-white\/30 { border-color: rgba(255, 255, 255, 0.3); }
+        .text-white\/50 { color: rgba(255, 255, 255, 0.5); }
+        .text-white\/60 { color: rgba(255, 255, 255, 0.6); }
+        .text-white\/70 { color: rgba(255, 255, 255, 0.7); }
+        .text-white\/80 { color: rgba(255, 255, 255, 0.8); }
+        .text-white\/90 { color: rgba(255, 255, 255, 0.9); }
+        
+        /* Gradients */
+        .from-black\/90 { --tw-gradient-from: rgba(0,0,0,0.9); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, transparent); }
+        .via-black\/30 { --tw-gradient-stops: var(--tw-gradient-from), rgba(0,0,0,0.3), var(--tw-gradient-to, transparent); }
+        .from-stone { --tw-gradient-from: #EAE7E1; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, transparent); }
+        .via-stone { --tw-gradient-stops: var(--tw-gradient-from), #EAE7E1, var(--tw-gradient-to, transparent); }
+
+        /* Hover & Group States */
+        .hover\:text-gold:hover { color: var(--c-gold); }
+        .hover\:bg-gold:hover { background-color: var(--c-gold); }
+        .hover\:bg-stone:hover { background-color: var(--c-stone); }
+        .hover\:bg-white\/50:hover { background-color: rgba(255, 255, 255, 0.5); }
+        .hover\:border-gold\/30:hover { border-color: rgba(197, 168, 128, 0.3); }
+        .group:hover .group-hover\:text-gold { color: var(--c-gold); }
+        .group:hover .group-hover\:scale-110 { transform: scale(1.1); }
+        .group:hover .group-hover\:opacity-100 { opacity: 1; }
+        .group:hover .group-hover\:translate-y-0 { transform: translateY(0); }
+
+        /* Custom Utilities & Arbitrary Values */
+        .shadow-premium { box-shadow: 0 10px 40px -10px rgba(0,0,0,0.08); }
+        .shadow-floating { box-shadow: 0 20px 40px -20px rgba(0,0,0,0.15); }
+        .h-\[90vh\] { height: 90vh; }
+        .max-w-\[1400px\] { max-width: 1400px; }
+        .tracking-\[0\.2em\] { letter-spacing: 0.2em; }
+        .w-\[3\.5rem\] { width: 3.5rem; }
+        .w-\[5\.5rem\] { width: 5.5rem; }
+        .ml-\[3\.5rem\] { margin-left: 3.5rem; }
+        .left-\[3\.5rem\] { left: 3.5rem; }
+        .before\:ml-\[3\.5rem\]::before { margin-left: 3.5rem; }
+        
+        @media (min-width: 768px) {
+            .md\:ml-\[5\.5rem\] { margin-left: 5.5rem; }
+            .md\:left-\[5\.5rem\] { left: 5.5rem; }
+            .md\:before\:ml-\[5\.5rem\]::before { margin-left: 5.5rem; }
+            .md\:before\:mx-auto::before { margin-left: auto; margin-right: auto; }
+            .md\:before\:translate-x-0::before { transform: translateX(0); }
+        }
+
+        @keyframes customPulse {
+            0%, 100% { transform: scale(1.05); opacity: 1; }
+            50% { transform: scale(1.0); opacity: 0.9; }
+        }
+        .animate-\[pulse_20s_ease-in-out_infinite_alternate\] {
+            animation: customPulse 20s ease-in-out infinite alternate;
+        }
+    </style>
 </head>
-<body class="bg-ivory text-charcoal font-sans antialiased selection:bg-gold selection:text-white" x-data="itineraryApp">
+<body class="bg-ivory text-charcoal font-sans antialiased selection:bg-gold selection:text-white" x-data="itineraryApp()">
 
     <!-- Fixed Premium Navigation -->
     <nav class="fixed w-full z-50 glass-nav transition-all duration-300">
