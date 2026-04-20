@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Elite Arctic Aurora Expedition | Master Plan</title>
     
+    <!-- Open Graph / GitHub Social Sharing Meta Tags -->
+    <meta property="og:title" content="Elite Arctic Aurora Expedition | Master Plan">
+    <meta property="og:description" content="A premium, interactive travel itinerary dashboard across Iceland, Norway, and Finland.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1531366936336-62fc674baa3e?q=80&w=2070&auto=format&fit=crop">
+    
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,12 +19,11 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Application Logic (Moved to head to prevent ReferenceErrors before Alpine parses the DOM) -->
+    <!-- Application Logic -->
     <script>
         function itineraryApp() {
             return {
                 activeDay: 0,
-                // Utility to style timeline nodes based on event type
                 getEventColorClass(type) {
                     const map = {
                         flight: 'bg-charcoal',
@@ -45,7 +50,6 @@
                     };
                     return map[type] || 'text-gold';
                 },
-                // The single source of truth extracted meticulously from the PDF
                 itineraryData: [
                     {
                         day: 1,
@@ -224,7 +228,7 @@
     </script>
     
     <!-- Alpine.js -->
-    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     
     <!-- Phosphor Icons -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
@@ -311,7 +315,10 @@
                 <a href="#itinerary" class="hover:text-gold transition-colors">Master Itinerary</a>
                 <a href="#curation" class="hover:text-gold transition-colors">Curation</a>
             </div>
-            <div class="flex items-center">
+            <div class="flex items-center gap-4">
+                <a href="https://github.com" target="_blank" class="hidden md:flex items-center justify-center w-10 h-10 rounded-full border border-stone hover:bg-stone transition-colors text-charcoal">
+                    <i class="ph ph-github-logo text-xl"></i>
+                </a>
                 <button class="bg-charcoal text-white px-5 py-2.5 rounded-full text-xs font-semibold tracking-wider uppercase hover:bg-gold transition-colors flex items-center gap-2 shadow-floating">
                     <i class="ph ph-download-simple text-sm"></i> Sync to App
                 </button>
@@ -607,7 +614,12 @@
                 <i class="ph ph-compass text-xl text-gold"></i>
                 <span class="font-serif font-semibold text-charcoal uppercase tracking-widest text-sm">Expedition Master Plan</span>
             </div>
-            <p class="text-xs text-graphite/50 tracking-widest uppercase">Strictly Confidential &bull; Designed for Elite Execution</p>
+            <div class="flex items-center gap-4">
+                <p class="text-xs text-graphite/50 tracking-widest uppercase">Strictly Confidential &bull; Designed for Elite Execution</p>
+                <a href="https://github.com" target="_blank" class="text-graphite/50 hover:text-gold transition-colors">
+                    <i class="ph-fill ph-github-logo text-xl"></i>
+                </a>
+            </div>
         </div>
     </footer>
 
