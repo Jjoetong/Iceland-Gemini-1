@@ -5,51 +5,74 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Elite Arctic Aurora Expedition | Master Plan</title>
     
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="Elite Arctic Aurora Expedition">
-    <meta property="og:description" content="A premium, interactive travel itinerary dashboard.">
+    <!-- Open Graph / GitHub Social Sharing -->
+    <meta property="og:title" content="Elite Arctic Aurora Expedition | Master Plan">
+    <meta property="og:description" content="A premium, interactive travel itinerary dashboard across Iceland, Norway, and Finland.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1531366936336-62fc674baa3e?q=80&w=2070&auto=format&fit=crop">
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     
-    <!-- 1. Configuration ALWAYS goes before the Tailwind script -->
+    <!-- 1. TAILWIND ENGINE MUST LOAD FIRST -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- 2. TAILWIND CONFIGURATION MUST LOAD AFTER THE ENGINE -->
     <script>
-        window.tailwind = {
-            config: {
-                theme: {
-                    extend: {
-                        fontFamily: {
-                            sans: ['Inter', 'sans-serif'],
-                            serif: ['Playfair Display', 'serif'],
-                        },
-                        colors: {
-                            ivory: '#F9F8F6',
-                            stone: '#EAE7E1',
-                            charcoal: '#1A1A1A',
-                            graphite: '#2D2D2D',
-                            gold: '#C5A880',
-                            'gold-light': '#E8DCCB',
-                            champagne: '#F4F0EA'
-                        },
-                        boxShadow: {
-                            'premium': '0 10px 40px -10px rgba(0,0,0,0.08)',
-                            'floating': '0 20px 40px -20px rgba(0,0,0,0.15)',
-                        }
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        ivory: '#F9F8F6',
+                        stone: '#EAE7E1',
+                        charcoal: '#1A1A1A',
+                        graphite: '#2D2D2D',
+                        gold: '#C5A880',
+                        'gold-light': '#E8DCCB',
+                        champagne: '#F4F0EA'
+                    },
+                    boxShadow: {
+                        'premium': '0 10px 40px -10px rgba(0,0,0,0.08)',
+                        'floating': '0 20px 40px -20px rgba(0,0,0,0.15)',
                     }
                 }
             }
         }
     </script>
 
-    <!-- 2. Load Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- 3. App Data & Logic -->
+    <style>
+        /* Hide Alpine components before compilation to prevent unstyled flashes */
+        [x-cloak] { display: none !important; }
+        
+        /* Custom Scrollbar for a premium feel */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #F9F8F6; }
+        ::-webkit-scrollbar-thumb { background: #EAE7E1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #C5A880; }
+
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        .glass-nav {
+            background: rgba(249, 248, 246, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(234, 231, 225, 0.5);
+        }
+
+        .hero-gradient { background: linear-gradient(to bottom, rgba(26,26,26,0.2) 0%, rgba(26,26,26,0.8) 100%); }
+    </style>
+
+    <!-- 3. ALPINE COMPONENT LOGIC -->
     <script>
-        function itineraryApp() {
-            return {
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('itineraryApp', () => ({
                 activeDay: 0,
                 getEventColorClass(type) {
                     const map = {
@@ -81,7 +104,7 @@
                     {
                         day: 1,
                         date: "March 27, 2027",
-                        title: "Arrival & Reykjavik Lifestyle",
+                        title: "Arrival & Reykjavik Lifestyle Integration",
                         location: "Reykjavik, Iceland",
                         highlights: ["VIP Customs", "Sky Lagoon", "Bottega Veneta", "Michelin Dinner"],
                         events: [
@@ -91,10 +114,10 @@
                             { time: "11:30", duration: "15m", type: "transit", category: "Transit", title: "Transfer to City Center", desc: "Private SUV drop-off directly at the Hafnartorg Gallery district." },
                             { time: "11:45", duration: "1h 30m", type: "shopping", category: "Luxury Retail", title: "Collage The Shop", desc: "High-end fashion browsing in Hafnartorg. Targeting Gucci, Bottega Veneta, and Balenciaga.", tags: ["Fashion"] },
                             { time: "13:15", duration: "10m", type: "transit", category: "Walk", title: "Walk to Laugavegur", desc: "Walk up the main shopping street." },
-                            { time: "13:25", duration: "1h 00m", type: "dining", category: "Lunch", title: "Sandholt Bakery", desc: "Artisanal pastries, sourdough, shakshuka.", remark: "Justified wait for visual and culinary yield." },
+                            { time: "13:25", duration: "1h 00m", type: "dining", category: "Lunch", title: "Sandholt Bakery", desc: "Artisanal pastries, sourdough, shakshuka. Fast-paced profile accounts for 5-20 min queue to secure arguably the finest artisanal pastries.", remark: "Justified wait for visual and culinary yield." },
                             { time: "14:25", duration: "50m", type: "shopping", category: "Boutique", title: "Kronkron Boutique", desc: "Browse avant-garde local design and international labels." },
-                            { time: "15:15", duration: "15m", type: "photo", category: "Photo Stop", title: "Hallgrímskirkja", desc: "Architectural exterior photography. Deliberately skipping the interior tower queue.", tags: ["Visual Yield"] },
-                            { time: "15:30", duration: "15m", type: "photo", category: "Photo Stop", title: "Sun Voyager Sculpture", desc: "Steel reflection photography." },
+                            { time: "15:15", duration: "15m", type: "photo", category: "Photo Stop", title: "Hallgrímskirkja", desc: "Architectural exterior photography. Deliberately skipping the interior tower queue to maintain momentum.", tags: ["Visual Yield"] },
+                            { time: "15:30", duration: "15m", type: "photo", category: "Photo Stop", title: "Sun Voyager Sculpture", desc: "Steel reflection photography. Optimized for capturing metallic light reflections against the ocean." },
                             { time: "15:45", duration: "15m", type: "transit", category: "Transit", title: "Vehicle meets at Sæbraut", desc: "Private SUV picks up to prevent backtracking." },
                             { time: "16:00", duration: "2h 30m", type: "hotel", category: "Hotel", title: "The Reykjavik EDITION", desc: "Check-in & refresh at luxury harbor-side property." },
                             { time: "18:30", duration: "15m", type: "transit", category: "Transit", title: "Transfer to Grandi", desc: "Short drive to the old harbor district." },
@@ -104,25 +127,25 @@
                     {
                         day: 2,
                         date: "March 28, 2027",
-                        title: "Kinetic South Coast",
-                        location: "South Coast, Iceland",
+                        title: "Kinetic South Coast & Geothermal Isolation",
+                        location: "Golden Circle & South Coast, Iceland",
                         highlights: ["Private SUV", "Waterfall Corridors", "Torfhús Retreat", "Private Aurora"],
                         events: [
-                            { time: "08:00", duration: "45m", type: "transit", category: "Transit", title: "Drive to Þingvellir", desc: "Fast morning departure required." },
+                            { time: "08:00", duration: "45m", type: "transit", category: "Transit", title: "Drive to Þingvellir", desc: "Fast morning departure required. Avoiding tourist buses." },
                             { time: "08:45", duration: "15m", type: "photo", category: "Scenic Stop", title: "Þingvellir Tectonic Rift", desc: "Landscape photography of the continental divide." },
-                            { time: "09:00", duration: "45m", type: "transit", category: "Transit", title: "Transit to Haukadalur", desc: "Drive on Route 36/35 via Private SUV." },
+                            { time: "09:00", duration: "45m", type: "transit", category: "Transit", title: "High-speed Transit to Haukadalur", desc: "Drive on Route 36/35 via Private SUV." },
                             { time: "09:45", duration: "15m", type: "photo", category: "Photo Stop", title: "Strokkur Geyser", desc: "Eruption photography." },
                             { time: "10:00", duration: "10m", type: "transit", category: "Transit", title: "Drive to Gullfoss", desc: "Extremely short transit." },
                             { time: "10:10", duration: "15m", type: "photo", category: "Scenic Stop", title: "Gullfoss Waterfall", desc: "Landscape photography." },
-                            { time: "10:25", duration: "1h 35m", type: "transit", category: "Transit", title: "Transit to South Coast", desc: "Scenic route transition toward the Southern waterfalls." },
+                            { time: "10:25", duration: "1h 35m", type: "transit", category: "Transit", title: "Longest Drive of Day", desc: "Scenic route transition toward the Southern waterfalls." },
                             { time: "12:00", duration: "15m", type: "photo", category: "Photo Stop", title: "Seljalandsfoss", desc: "Waterfall photography." },
-                            { time: "12:15", duration: "30m", type: "transit", category: "Transit", title: "Run down Route 1", desc: "Drive to Skógar." },
+                            { time: "12:15", duration: "30m", type: "transit", category: "Transit", title: "Straight, efficient run down Route 1", desc: "Drive to Skógar." },
                             { time: "12:45", duration: "15m", type: "photo", category: "Photo Stop", title: "Skógafoss", desc: "60-meter drop photography." },
                             { time: "13:00", duration: "30m", type: "transit", category: "Transit", title: "Coastal approach", desc: "Drive to Vík / Reynisfjara." },
                             { time: "13:30", duration: "20m", type: "photo", category: "Photo Stop", title: "Reynisfjara Black Sand Beach", desc: "Basalt columns and stark volcanic geometry strikes." },
                             { time: "13:50", duration: "1h 10m", type: "dining", category: "Lunch", title: "Vík Local Fare", desc: "Action-lunch in the coastal town." },
-                            { time: "15:00", duration: "1h 30m", type: "transit", category: "Transit", title: "Return Drive", desc: "Optimize hotel leisure time by heading to basecamp." },
-                            { time: "16:30", duration: "1h 00m", type: "hotel", category: "Hotel", title: "Torfhús Retreat Check-in", desc: "Elite geothermal property settlement.", remark: "Property actively experienced as a destination." },
+                            { time: "15:00", duration: "1h 30m", type: "transit", category: "Transit", title: "Return Drive to Golden Circle", desc: "Optimize hotel leisure time by heading to basecamp." },
+                            { time: "16:30", duration: "1h 00m", type: "hotel", category: "Hotel", title: "Torfhús Retreat Check-in", desc: "Elite geothermal property settlement.", remark: "Property actively experienced as a destination, not merely a sleep location." },
                             { time: "17:30", duration: "1h 00m", type: "leisure", category: "Leisure", title: "Private Basalt-stone Pool", desc: "60-minute thermal pool session sunk directly into the earth." },
                             { time: "18:30", duration: "2h 00m", type: "dining", category: "Dinner", title: "In-house Dining", desc: "Use local dining at the Torfhús Retreat." },
                             { time: "21:00", duration: "3h 00m", type: "attraction", category: "Attraction", title: "Private Aurora Viewing", desc: "Viewing the northern lights from the isolated retreat." }
@@ -131,52 +154,52 @@
                     {
                         day: 3,
                         date: "March 29, 2027",
-                        title: "Lateral Aviation Corridor",
-                        location: "Iceland to Norway",
+                        title: "Lateral Aviation Corridor to Norway",
+                        location: "Iceland to Tromsø, Norway",
                         highlights: ["Direct Flight FI313", "Fiskekompaniet", "4x4 Lyngen Alps"],
                         events: [
                             { time: "09:00", duration: "2h 30m", type: "transit", category: "Transit", title: "Highway Transit", desc: "Drive back to Keflavik Airport (KEF)." },
-                            { time: "11:30", duration: "2h 00m", type: "flight", category: "Airport", title: "VIP Airport Check-in", desc: "Expedited processes and lounge access.", tags: ["VIP"] },
-                            { time: "13:30", duration: "4h 55m", type: "flight", category: "Flight", title: "Direct Flight FI313 (KEF to TOS)", desc: "CRITICAL: Final operational day for this direct flight. Evades mainland layovers.", tags: ["Vital Logic", "Icelandair"] },
+                            { time: "11:30", duration: "2h 00m", type: "flight", category: "Airport", title: "VIP Airport Check-in", desc: "Expedited processes and lounge access to minimize airport friction.", tags: ["VIP"] },
+                            { time: "13:30", duration: "4h 55m", type: "flight", category: "Flight", title: "Direct Flight FI313 (KEF to TOS)", desc: "CRITICAL: This is the absolute final operational day for this direct flight route. Evades all mainland Europe layovers.", tags: ["Vital Logic", "Icelandair"] },
                             { time: "18:25", duration: "35m", type: "transit", category: "Transit", title: "VIP Transfer into City", desc: "Quick drive from Tromsø Airport (TOS)." },
                             { time: "19:00", duration: "45m", type: "hotel", category: "Hotel", title: "Clarion The Edge", desc: "Check-in & refresh at the harbor property." },
                             { time: "19:45", duration: "15m", type: "transit", category: "Walk", title: "Waterfront Stroll", desc: "Scenic walk to dinner." },
-                            { time: "20:00", duration: "2h 00m", type: "dining", category: "Dinner", title: "Fiskekompaniet", desc: "High-end seafood tasting menu with soaring glass windows.", tags: ["Michelin-recognized"] },
-                            { time: "22:00", duration: "3h 00m", type: "attraction", category: "Attraction", title: "Tactical Aurora Chase", desc: "Private 4x4 driving inland toward the Lyngen Alps.", tags: ["Interceptor Unit"] }
+                            { time: "20:00", duration: "2h 00m", type: "dining", category: "Dinner", title: "Fiskekompaniet", desc: "High-end seafood tasting menu with soaring floor-to-ceiling glass windows perfectly matching visual demands.", tags: ["Michelin-recognized"] },
+                            { time: "22:00", duration: "3h 00m", type: "attraction", category: "Attraction", title: "Tactical Aurora Chase", desc: "Private 4x4. Variable routing based on coastal clouds, driving inland toward the Lyngen Alps.", tags: ["Interceptor Unit"] }
                         ]
                     },
                     {
                         day: 4,
                         date: "March 30, 2027",
-                        title: "Tromsø Fashion & Fjords",
+                        title: "Tromsø Fashion & Silent Fjords",
                         location: "Tromsø, Norway",
                         highlights: ["Storgata Shopping", "Panoramic Views", "Silent Yacht Fjord Cruise"],
                         events: [
-                            { time: "10:00", duration: "1h 30m", type: "shopping", category: "Shopping", title: "Storgata Boutiques", desc: "Wabi Sabi (bespoke jewelry) & Abanti (premium Sami merino/leather fashion)." },
+                            { time: "10:00", duration: "1h 30m", type: "shopping", category: "Shopping", title: "Storgata Boutiques", desc: "Wabi Sabi (bespoke jewelry) & Abanti (premium Sami merino/leather fashion). Bypassing standard tourist traps." },
                             { time: "11:30", duration: "1h 00m", type: "dining", category: "Lunch", title: "Bardus Bistro", desc: "Modern Arctic bistro lunch." },
                             { time: "12:30", duration: "15m", type: "transit", category: "Transit", title: "Drive to Fjellheisen", desc: "Cross the Tromsø bridge." },
-                            { time: "12:45", duration: "1h 00m", type: "photo", category: "Scenic Stop", title: "Mt. Storsteinen", desc: "Ascend via cable car. Best wide-angle photo spot for the entire city." },
-                            { time: "13:45", duration: "30m", type: "transit", category: "Transit", title: "Brief transit", desc: "Return to hotel to transition to evening gear." },
+                            { time: "12:45", duration: "1h 00m", type: "photo", category: "Scenic Stop", title: "Mt. Storsteinen", desc: "Ascend via cable car. Arguably the best wide-angle photo spot for the entire city." },
+                            { time: "13:45", duration: "30m", type: "transit", category: "Transit", title: "Brief downtown transit", desc: "Return to hotel to transition to evening gear." },
                             { time: "14:15", duration: "3h 15m", type: "leisure", category: "Leisure", title: "Hotel Leisure & Packing", desc: "Downtime at Clarion The Edge." },
                             { time: "17:30", duration: "1h 30m", type: "dining", category: "Dinner", title: "Mathallen", desc: "Arctic tasting menu." },
                             { time: "19:00", duration: "15m", type: "transit", category: "Walk", title: "Proceed directly to docks", desc: "Walk to the harbor." },
-                            { time: "19:15", duration: "3h 00m", type: "attraction", category: "Attraction", title: "Arctic Silent Fjord Yacht", desc: "Hybrid-electric catamaran cruise. Zero-emission silent navigation." }
+                            { time: "19:15", duration: "3h 00m", type: "attraction", category: "Attraction", title: "Arctic Silent Fjord Yacht", desc: "Hybrid-electric catamaran cruise. Zero-emission silent navigation; ultimate luxury viewing platform." }
                         ]
                     },
                     {
                         day: 5,
                         date: "March 31, 2027",
-                        title: "Finnish Taiga Basecamp",
+                        title: "Finnish Taiga & Cinematic Glass",
                         location: "Rovaniemi, Finland",
                         highlights: ["Flight AY542", "Marimekko", "Arctic TreeHouse", "Passive Aurora"],
                         events: [
-                            { time: "08:30", duration: "1h 00m", type: "transit", category: "Transit", title: "Morning departure", desc: "VIP transfer to Tromsø airport." },
-                            { time: "10:30", duration: "2h 20m", type: "flight", category: "Flight", title: "Direct Flight AY542 (TOS to RVN)", desc: "Direct connection bypasses grueling 9-hour overland drive.", tags: ["Finnair"] },
-                            { time: "12:50", duration: "25m", type: "transit", category: "Transit", title: "Transition into Finland", desc: "Private SUV to Rovaniemi City Center." },
-                            { time: "13:15", duration: "1h 00m", type: "dining", category: "Lunch", title: "Cafe Roasti", desc: "Specialty artisanal coffee in a trendy, modern setting." },
-                            { time: "14:15", duration: "1h 15m", type: "shopping", category: "Shopping", title: "Sampokeskus Centre", desc: "Marimekko & Mainoa Craft and Design. High-end Finnish design." },
-                            { time: "15:30", duration: "15m", type: "transit", category: "Transit", title: "Drive to forest edge", desc: "Transit to Syväsenvaara." },
-                            { time: "15:45", duration: "2h 15m", type: "hotel", category: "Hotel", title: "Arctic TreeHouse Hotel", desc: "Check-in & Photo Session. Cinematic glass walls acting as destinations." },
+                            { time: "08:30", duration: "1h 00m", type: "transit", category: "Transit", title: "Morning departure logic", desc: "VIP transfer to Tromsø airport." },
+                            { time: "10:30", duration: "2h 20m", type: "flight", category: "Flight", title: "Direct Flight AY542 (TOS to RVN)", desc: "Direct connection bypasses grueling 9-hour overland drive. Highly efficient.", tags: ["Finnair"] },
+                            { time: "12:50", duration: "25m", type: "transit", category: "Transit", title: "Fast transition into Finnish Lapland", desc: "Private SUV to Rovaniemi City Center." },
+                            { time: "13:15", duration: "1h 00m", type: "dining", category: "Lunch", title: "Cafe Roasti", desc: "Specialty artisanal coffee in a trendy, modern setting that photographs beautifully." },
+                            { time: "14:15", duration: "1h 15m", type: "shopping", category: "Shopping", title: "Sampokeskus Centre", desc: "Marimekko & Mainoa Craft and Design. High-end authentic Finnish design." },
+                            { time: "15:30", duration: "15m", type: "transit", category: "Transit", title: "Short drive into the forest edge", desc: "Transit to Syväsenvaara." },
+                            { time: "15:45", duration: "2h 15m", type: "hotel", category: "Hotel", title: "Arctic TreeHouse Hotel", desc: "Check-in & Photo Session. Cinematic glass walls acting as architectural destinations." },
                             { time: "18:00", duration: "2h 00m", type: "dining", category: "Dinner", title: "Rakas Restaurant", desc: "Upscale Lappish dining on site." },
                             { time: "21:00", duration: "4h 00m", type: "attraction", category: "Attraction", title: "TreeHouse Suite Aurora Viewing", desc: "Heated glass melts snow instantly; watch the sky directly from bed." }
                         ]
@@ -184,14 +207,14 @@
                     {
                         day: 6,
                         date: "April 1, 2027",
-                        title: "Husky Piloting & Gastronomy",
+                        title: "Husky Piloting & Arctic Gastronomy",
                         location: "Rovaniemi, Finland",
                         highlights: ["Private Husky Safari", "Arctic Circle", "Gustav Kitchen"],
                         events: [
                             { time: "09:30", duration: "30m", type: "transit", category: "Transit", title: "Deep forest access", desc: "Private SUV to Taiga Forest Husky Reserve." },
-                            { time: "10:00", duration: "2h 00m", type: "attraction", category: "Attraction", title: "Private Husky Safari", desc: "Dog sled on a private track. Physically pilot the sled.", tags: ["Exclusive"] },
-                            { time: "12:00", duration: "30m", type: "transit", category: "Transit", title: "Drive to Arctic Circle line", desc: "Transit to Santa Claus Village." },
-                            { time: "12:30", duration: "1h 00m", type: "photo", category: "Photo Stop", title: "Arctic Circle Crossing", desc: "Highly iconic heavily photographed location; keep visit swift." },
+                            { time: "10:00", duration: "2h 00m", type: "attraction", category: "Attraction", title: "Private Husky Safari", desc: "Dog sled on a private track. No large tourist groups. Physically pilot the sled.", tags: ["Exclusive"] },
+                            { time: "12:00", duration: "30m", type: "transit", category: "Transit", title: "Drive to the Arctic Circle line", desc: "Transit to Santa Claus Village." },
+                            { time: "12:30", duration: "1h 00m", type: "photo", category: "Photo Stop", title: "Arctic Circle Crossing", desc: "Highly iconic heavily photographed location; keep visit swift and visual." },
                             { time: "13:30", duration: "1h 00m", type: "dining", category: "Lunch", title: "Santa's Salmon Place", desc: "Fire-roasted salmon." },
                             { time: "14:30", duration: "30m", type: "transit", category: "Transit", title: "Return to Hotel", desc: "Mid-afternoon reset." },
                             { time: "15:00", duration: "3h 00m", type: "leisure", category: "Leisure", title: "Arctic TreeHouse Leisure", desc: "Enjoy the property." },
@@ -201,16 +224,16 @@
                     {
                         day: 7,
                         date: "April 2, 2027",
-                        title: "Apex Luxury: Octola",
+                        title: "Apex Luxury: Octola Private Wilderness",
                         location: "Octola Reserve, Finland",
                         highlights: ["300-Hectare Reserve", "Aerial Heli-Tour", "Ice Plunge"],
                         events: [
-                            { time: "10:00", duration: "30m", type: "transit", category: "Transit", title: "Enter the private reserve", desc: "Private SUV transfer to Octola." },
-                            { time: "10:30", duration: "1h 30m", type: "hotel", category: "Hotel", title: "Octola Wilderness Check-in", desc: "Check-in. The absolute highest echelon of Arctic luxury." },
+                            { time: "10:00", duration: "30m", type: "transit", category: "Transit", title: "Enter the 300-hectare private reserve", desc: "Private SUV transfer to Octola." },
+                            { time: "10:30", duration: "1h 30m", type: "hotel", category: "Hotel", title: "Octola Wilderness Check-in", desc: "Check-in and Wilderness Tours. The absolute highest echelon of Arctic luxury." },
                             { time: "12:00", duration: "2h 00m", type: "dining", category: "Lunch", title: "Private Chef Lunch", desc: "Exclusive dining at the reserve." },
                             { time: "14:00", duration: "1h 00m", type: "transit", category: "Walk", title: "Walk to Helipad", desc: "Located directly on the private estate." },
-                            { time: "15:00", duration: "1h 00m", type: "photo", category: "Scenic Stop", title: "Arctic Sky Aerial Photography", desc: "VIP Helicopter ride. Unhindered aerial views of the frozen river systems." },
-                            { time: "16:30", duration: "2h 00m", type: "attraction", category: "Wellness", title: "Wood-Burning Sauna & Ice Plunge", desc: "Hand-carved sauna session specifically scheduled as an experiential pillar." },
+                            { time: "15:00", duration: "1h 00m", type: "photo", category: "Scenic Stop", title: "Arctic Sky Aerial Photography Tour", desc: "VIP Helicopter ride. Unhindered aerial views of the frozen river systems and fells; incredible photo yield." },
+                            { time: "16:30", duration: "2h 00m", type: "attraction", category: "Wellness", title: "Wood-Burning Sauna & Ice Plunge", desc: "Hand-carved sauna session specifically scheduled to act as an experiential pillar." },
                             { time: "19:30", duration: "2h 00m", type: "dining", category: "Dinner", title: "Private Chef Dinner", desc: "Bespoke culinary experience at Octola." }
                         ]
                     },
@@ -219,9 +242,9 @@
                         date: "April 3, 2027",
                         title: "Heli-Gastronomy Excursion",
                         location: "Kuusamo, Finland",
-                        highlights: ["Helicopter Transport", "Restaurant Tapio"],
+                        highlights: ["Helicopter Transport", "Restaurant Tapio (Michelin)"],
                         events: [
-                            { time: "10:00", duration: "4h 00m", type: "attraction", category: "Attraction", title: "Helicopter to Restaurant Tapio", desc: "Utilize helicopter to bypass the 4-hour round-trip drive to the Michelin restaurant.", tags: ["Michelin", "Heli-Strike"] },
+                            { time: "10:00", duration: "4h 00m", type: "attraction", category: "Attraction", title: "Helicopter to Restaurant Tapio", desc: "Utilize helicopter to bypass the 4-hour round-trip drive to the world's northernmost Michelin restaurant.", tags: ["Michelin", "Heli-Strike"] },
                             { time: "14:00", duration: "4h 00m", type: "leisure", category: "Leisure", title: "Octola Reserve Leisure & Prep", desc: "Afternoon relaxation." }
                         ]
                     },
@@ -235,7 +258,7 @@
                             { time: "09:00", duration: "1h 30m", type: "dining", category: "Breakfast", title: "Champagne Birthday Breakfast", desc: "Celebratory morning at Octola." },
                             { time: "14:00", duration: "2h 00m", type: "attraction", category: "Attraction", title: "High-Speed Snowmobile Safari", desc: "Adrenaline-fueled transit across frozen lakes.", tags: ["High-Octane"] },
                             { time: "19:00", duration: "3h 00m", type: "dining", category: "Dinner", title: "Invisible Forest Lodge", desc: "Birthday Dinner. Remote glass-igloo dining to maximize the celebratory impact." },
-                            { time: "22:00", duration: "3h 00m", type: "attraction", category: "Attraction", title: "Wilderness Aurora Chase", desc: "Unlimited-mileage elite outfitter; ensuring the birthday ends under the aurora." }
+                            { time: "22:00", duration: "3h 00m", type: "attraction", category: "Attraction", title: "Wilderness Aurora Chase", desc: "Unlimited-mileage elite outfitter; ensuring the birthday ends under the aurora in a private 4x4." }
                         ]
                     },
                     {
@@ -250,33 +273,23 @@
                         ]
                     }
                 ]
-            }
-        }
+            }));
+        });
     </script>
     
-    <!-- 4. Load Alpine JS -->
+    <!-- 4. ALPINE SCRIPT LOADED AFTER LOGIC -->
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-
-    <style>
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #F9F8F6; }
-        ::-webkit-scrollbar-thumb { background: #EAE7E1; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: #C5A880; }
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        .glass-nav { background: rgba(249, 248, 246, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid rgba(234, 231, 225, 0.5); }
-        .hero-gradient { background: linear-gradient(to bottom, rgba(26,26,26,0.2) 0%, rgba(26,26,26,0.8) 100%); }
-        [x-cloak] { display: none !important; }
-    </style>
+    
+    <!-- 5. PHOSPHOR ICONS -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
 </head>
-<body class="bg-ivory text-charcoal font-sans antialiased selection:bg-gold selection:text-white" x-data="itineraryApp()">
+<body class="bg-ivory text-charcoal font-sans antialiased selection:bg-gold selection:text-white" x-data="itineraryApp">
 
     <!-- Fixed Premium Navigation -->
     <nav class="fixed w-full z-50 glass-nav transition-all duration-300">
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
             <div class="flex items-center gap-3">
-                <!-- Inline SVG Compass -->
-                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gold"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
+                <i class="ph ph-compass text-2xl text-gold"></i>
                 <span class="font-serif font-semibold text-lg tracking-wide uppercase text-charcoal">Expedition<span class="text-gold">.</span></span>
             </div>
             <div class="hidden md:flex items-center gap-8 text-sm font-medium tracking-wide text-graphite">
@@ -287,11 +300,10 @@
             </div>
             <div class="flex items-center gap-4">
                 <a href="https://github.com" target="_blank" class="hidden md:flex items-center justify-center w-10 h-10 rounded-full border border-stone hover:bg-stone transition-colors text-charcoal">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+                    <i class="ph ph-github-logo text-xl"></i>
                 </a>
                 <button class="bg-charcoal text-white px-5 py-2.5 rounded-full text-xs font-semibold tracking-wider uppercase hover:bg-gold transition-colors flex items-center gap-2 shadow-floating">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg> 
-                    Sync to App
+                    <i class="ph ph-download-simple text-sm"></i> Sync to App
                 </button>
             </div>
         </div>
@@ -299,12 +311,13 @@
 
     <!-- Hero Cinematic Section -->
     <section class="relative h-[90vh] w-full overflow-hidden flex items-center justify-center">
+        <!-- High-end Unsplash Aurora/Arctic Image -->
         <img src="https://images.unsplash.com/photo-1531366936336-62fc674baa3e?q=80&w=2070&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover scale-105 transform origin-center animate-[pulse_20s_ease-in-out_infinite_alternate]" alt="Arctic Aurora">
         <div class="absolute inset-0 hero-gradient"></div>
         
         <div class="relative z-10 text-center px-6 max-w-4xl mx-auto mt-20">
             <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/30 bg-white/10 backdrop-blur-md mb-8">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256" class="text-gold"><path d="M235.33,109.84l-42.5-16.74-16.74-42.5a20,20,0,0,0-37.18,0l-16.74,42.5L79.67,109.84a20,20,0,0,0,0,37.18l42.5,16.74,16.74,42.5a20,20,0,0,0,37.18,0l16.74-42.5,42.5-16.74A20,20,0,0,0,235.33,109.84Z"></path></svg>
+                <i class="ph-fill ph-sparkle text-gold text-sm"></i>
                 <span class="text-white text-xs font-semibold tracking-[0.2em] uppercase">Master Strategic Plan</span>
             </div>
             <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl text-white font-normal leading-tight mb-6 tracking-tight">
@@ -314,15 +327,9 @@
                 A masterclass in luxury, kinetic pacing, and aesthetic perfection across the sovereign territories of Iceland, Norway, and Finland.
             </p>
             <div class="flex flex-col sm:flex-row items-center justify-center gap-6 text-white/90 text-sm font-medium tracking-wider uppercase">
-                <div class="flex items-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gold"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                    Mar 27 - Apr 5, 2027
-                </div>
+                <div class="flex items-center gap-2"><i class="ph ph-calendar-blank text-gold text-lg"></i> Mar 27 - Apr 5, 2027</div>
                 <div class="hidden sm:block w-1 h-1 bg-gold rounded-full"></div>
-                <div class="flex items-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gold"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                    3 Nations
-                </div>
+                <div class="flex items-center gap-2"><i class="ph ph-map-pin text-gold text-lg"></i> 3 Nations</div>
             </div>
         </div>
     </section>
@@ -334,7 +341,7 @@
                 
                 <div class="space-y-4">
                     <div class="w-12 h-12 rounded-full bg-champagne flex items-center justify-center mb-6 text-gold">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.2-1.1.6l-1 2.5L8.5 13l-4 4-2.5-1-1.5 1 4 4 1-1.5-1-2.5 4-4 3.7 5.8c.4.6 1.3.6 1.8.1l2.5-1c.4-.2.7-.6.6-1.1z"></path></svg>
+                        <i class="ph ph-airplane-tilt text-2xl"></i>
                     </div>
                     <h3 class="font-serif text-2xl text-charcoal">Aviation Mastery</h3>
                     <p class="text-graphite font-light text-sm leading-relaxed">
@@ -344,7 +351,7 @@
 
                 <div class="space-y-4">
                     <div class="w-12 h-12 rounded-full bg-champagne flex items-center justify-center mb-6 text-gold">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12l4 6-10 12L2 9l4-6z"></path><path d="M2 9h20"></path><path d="M12 21V9"></path><path d="M6 3l6 6"></path><path d="M18 3l-6 6"></path></svg>
+                        <i class="ph ph-diamonds-four text-2xl"></i>
                     </div>
                     <h3 class="font-serif text-2xl text-charcoal">Uncompromising Yield</h3>
                     <p class="text-graphite font-light text-sm leading-relaxed">
@@ -354,9 +361,9 @@
 
                 <div class="space-y-4">
                     <div class="w-12 h-12 rounded-full bg-champagne flex items-center justify-center mb-6 text-gold">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                        <i class="ph ph-shopping-bag-open text-2xl"></i>
                     </div>
-                    <h3 class="font-serif text-2xl text-charcoal">Urban & Lifestyle</h3>
+                    <h3 class="font-serif text-2xl text-charcoal">Urban & Lifestyle Integration</h3>
                     <p class="text-graphite font-light text-sm leading-relaxed">
                         Bespoke retail windows injected across all urban hubs. From Bottega Veneta in Hafnartorg to avant-garde Sami fashion in Tromsø, matched with highly photogenic artisanal café environments.
                     </p>
@@ -373,9 +380,11 @@
             <h2 class="font-serif text-3xl md:text-5xl text-center mb-16">The Trajectory</h2>
             
             <div class="relative w-full max-w-4xl mx-auto py-10">
+                <!-- Line -->
                 <div class="absolute top-1/2 left-0 w-full h-[1px] bg-white/20 border-t border-dashed border-white/30 -translate-y-1/2 hidden md:block"></div>
                 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center relative z-10">
+                    <!-- Point 1 -->
                     <div class="flex flex-col items-center">
                         <div class="w-4 h-4 bg-gold rounded-full mb-6 shadow-[0_0_15px_rgba(197,168,128,0.5)]"></div>
                         <h4 class="font-serif text-xl mb-2">Iceland</h4>
@@ -383,6 +392,7 @@
                         <p class="text-sm font-light text-white/70">Reykjavik &bull; Golden Circle &bull; South Coast</p>
                     </div>
                     
+                    <!-- Point 2 -->
                     <div class="flex flex-col items-center">
                         <div class="w-4 h-4 bg-gold rounded-full mb-6 shadow-[0_0_15px_rgba(197,168,128,0.5)]"></div>
                         <h4 class="font-serif text-xl mb-2">Norway</h4>
@@ -390,6 +400,7 @@
                         <p class="text-sm font-light text-white/70">Tromsø &bull; Fjellheisen &bull; Arctic Fjords</p>
                     </div>
 
+                    <!-- Point 3 -->
                     <div class="flex flex-col items-center">
                         <div class="w-4 h-4 bg-gold rounded-full mb-6 shadow-[0_0_15px_rgba(197,168,128,0.5)]"></div>
                         <h4 class="font-serif text-xl mb-2">Finland</h4>
@@ -401,16 +412,18 @@
         </div>
     </section>
 
-    <!-- Master Itinerary -->
+    <!-- Master Itinerary Interactive App Interface -->
     <section id="itinerary" class="py-24 bg-stone/30">
         <div class="max-w-[1400px] mx-auto px-6">
+            
             <div class="flex flex-col lg:flex-row gap-12">
                 
-                <!-- Day Navigation -->
+                <!-- Left Sidebar: Day Navigation (Sticky on Desktop) -->
                 <div class="lg:w-1/3">
                     <div class="sticky top-32">
                         <h2 class="font-serif text-4xl text-charcoal mb-8">Master Itinerary</h2>
                         
+                        <!-- Desktop Nav List -->
                         <div class="hidden lg:flex flex-col gap-2">
                             <template x-for="(day, index) in itineraryData" :key="day.day">
                                 <button @click="activeDay = index; window.scrollTo({top: document.getElementById('itinerary').offsetTop - 50, behavior: 'smooth'})"
@@ -422,6 +435,7 @@
                             </template>
                         </div>
 
+                        <!-- Mobile Horizontal Scroll Nav -->
                         <div class="lg:hidden flex overflow-x-auto no-scrollbar gap-3 pb-4 snap-x">
                             <template x-for="(day, index) in itineraryData" :key="day.day">
                                 <button @click="activeDay = index"
@@ -434,15 +448,16 @@
                     </div>
                 </div>
 
-                <!-- Day Timeline -->
+                <!-- Right Content: Day Timeline -->
                 <div class="lg:w-2/3">
                     <template x-for="(day, index) in itineraryData" :key="day.day">
-                        <div x-show="activeDay === index"
+                        <div x-show="activeDay === index" x-cloak
                              x-transition:enter="transition ease-out duration-500"
                              x-transition:enter-start="opacity-0 translate-y-8"
                              x-transition:enter-end="opacity-100 translate-y-0"
                              class="bg-white rounded-3xl p-8 md:p-12 shadow-premium">
                             
+                            <!-- Day Header -->
                             <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 pb-8 border-b border-stone">
                                 <div>
                                     <div class="flex items-center gap-2 mb-3">
@@ -451,12 +466,12 @@
                                     </div>
                                     <h2 class="font-serif text-3xl md:text-5xl text-charcoal" x-text="day.title"></h2>
                                     <div class="flex items-center gap-2 mt-4 text-sm text-graphite">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gold"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> 
-                                        <span x-text="day.location"></span>
+                                        <i class="ph ph-map-pin text-gold"></i> <span x-text="day.location"></span>
                                     </div>
                                 </div>
                             </div>
 
+                            <!-- Highlights Mini-Cards -->
                             <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-12">
                                 <template x-for="tag in day.highlights">
                                     <div class="bg-ivory border border-stone/50 px-4 py-3 rounded-xl flex items-center justify-center text-center">
@@ -465,26 +480,32 @@
                                 </template>
                             </div>
 
+                            <!-- Vertical Timeline -->
                             <div class="relative before:absolute before:inset-0 before:ml-[3.5rem] md:before:ml-[5.5rem] before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-[2px] before:bg-gradient-to-b before:from-stone before:via-stone before:to-transparent">
                                 
                                 <div class="flex flex-col space-y-10 relative">
                                     <template x-for="event in day.events">
                                         
+                                        <!-- Timeline Item -->
                                         <div class="relative flex items-start group">
                                             
+                                            <!-- Time (Desktop Left) -->
                                             <div class="hidden md:flex w-[5.5rem] flex-shrink-0 flex-col items-end pr-6 pt-1">
                                                 <span class="text-sm font-bold text-charcoal" x-text="event.time"></span>
                                                 <span class="text-xs text-graphite/50 font-medium" x-text="event.duration"></span>
                                             </div>
 
+                                            <!-- Time (Mobile Left) -->
                                             <div class="flex md:hidden w-[3.5rem] flex-shrink-0 flex-col items-start pt-1">
                                                 <span class="text-xs font-bold text-charcoal" x-text="event.time"></span>
                                             </div>
 
+                                            <!-- Node -->
                                             <div class="absolute left-[3.5rem] md:left-[5.5rem] -translate-x-1/2 mt-1.5 w-3.5 h-3.5 rounded-full border-2 border-white ring-4 ring-ivory transition-colors duration-300 z-10"
                                                  :class="getEventColorClass(event.type)">
                                             </div>
 
+                                            <!-- Content Card -->
                                             <div class="ml-8 md:ml-6 flex-grow bg-white border border-stone/60 rounded-2xl p-6 transition-all duration-300 hover:shadow-floating hover:border-gold/30">
                                                 
                                                 <div class="flex flex-wrap items-start justify-between gap-4 mb-3">
@@ -493,6 +514,7 @@
                                                         <h4 class="font-serif text-xl text-charcoal" x-text="event.title"></h4>
                                                     </div>
                                                     
+                                                    <!-- Optional Tags -->
                                                     <div class="flex flex-wrap gap-2" x-show="event.tags && event.tags.length > 0">
                                                         <template x-for="tag in event.tags">
                                                             <span class="bg-charcoal/5 text-charcoal px-2 py-1 rounded text-[10px] font-bold tracking-widest uppercase" x-text="tag"></span>
@@ -502,8 +524,9 @@
                                                 
                                                 <p class="text-sm text-graphite leading-relaxed mb-4" x-text="event.desc"></p>
                                                 
+                                                <!-- Contextual Action/Note (if applicable based on type) -->
                                                 <div x-show="event.remark" class="bg-champagne/50 border border-gold/20 rounded-lg p-3 flex items-start gap-3">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gold mt-0.5 flex-shrink-0"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                                                    <i class="ph ph-info text-gold mt-0.5"></i>
                                                     <p class="text-xs text-charcoal font-medium leading-relaxed" x-text="event.remark"></p>
                                                 </div>
                                             </div>
@@ -530,6 +553,7 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 
+                <!-- Card 1 -->
                 <div class="group relative h-96 rounded-2xl overflow-hidden cursor-pointer">
                     <img src="https://images.unsplash.com/photo-1542642598-a89cfaec1a19?q=80&w=1964&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Torfhus Retreat">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
@@ -540,6 +564,7 @@
                     </div>
                 </div>
 
+                <!-- Card 2 -->
                 <div class="group relative h-96 rounded-2xl overflow-hidden cursor-pointer">
                     <img src="https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?q=80&w=2070&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Michelin Dining">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
@@ -550,6 +575,7 @@
                     </div>
                 </div>
 
+                <!-- Card 3 -->
                 <div class="group relative h-96 rounded-2xl overflow-hidden cursor-pointer">
                     <img src="https://images.unsplash.com/photo-1518398464670-65bb6d16d1a5?q=80&w=2070&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Octola Reserve">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
@@ -568,11 +594,14 @@
     <footer class="bg-ivory py-12 border-t border-stone">
         <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
             <div class="flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gold"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
+                <i class="ph ph-compass text-xl text-gold"></i>
                 <span class="font-serif font-semibold text-charcoal uppercase tracking-widest text-sm">Expedition Master Plan</span>
             </div>
             <div class="flex items-center gap-4">
                 <p class="text-xs text-graphite/50 tracking-widest uppercase">Strictly Confidential &bull; Designed for Elite Execution</p>
+                <a href="https://github.com" target="_blank" class="text-graphite/50 hover:text-gold transition-colors">
+                    <i class="ph-fill ph-github-logo text-xl"></i>
+                </a>
             </div>
         </div>
     </footer>
